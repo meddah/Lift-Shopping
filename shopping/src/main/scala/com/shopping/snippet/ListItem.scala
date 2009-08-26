@@ -17,8 +17,6 @@ import http._
 
 import scala.xml._
 
-object currentItem extends RequestVar[Box[Item]](Empty)
-
 class ListItem {
 
     def list(html: NodeSeq) : NodeSeq = {
