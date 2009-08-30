@@ -5,14 +5,19 @@ import net.liftweb._
 import mapper._
 import util._
 
-class Item extends LongKeyedMapper[Item] with IdPK with CRUDify[Long, Item]{
+class Item extends LongKeyedMapper[Item] with IdPK{
 
     def getSingleton = Item
 
     object name extends MappedPoliteString(this, 128)
     object amount extends MappedInt(this)
 
-    override def showAllMenuLoc = Empty
 }
 
-object Item extends Item with LongKeyedMetaMapper[Item]
+object Item extends Item with LongKeyedMetaMapper[Item] with CRUDify[Long, Item]{
+    override def showAllMenuLoc = Empty
+
+    override def createMenuLoc = Empty
+
+    override def fieldOrder = List(name, amount)
+}
