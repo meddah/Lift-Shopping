@@ -25,10 +25,18 @@ class Boot {
 
     // Build SiteMap
     val entries = Menu(Loc("Home", List("index"), "Home")) ::
+                    Menu(Loc("Item", List("item") -> true, "Item", Hidden)) ::
                     Menu(Loc("ItemList", List("item", "list"), "Item List")) ::
                     Menu(Loc("ItemCreate", List("item", "create"), "Create Item")) ::
                     User.sitemap ::: Item.menus
     LiftRules.setSiteMap(SiteMap(entries:_*))
+
+    LiftRules.rewrite.append {
+        case RewriteRequest(
+        ParsePath(List("item", "view", id),_,_,_),_,_) =>
+        RewriteResponse("item" :: "view" :: Nil, Map("id" -> id))
+    }
+
 
     /*
      * Show the spinny image when an Ajax call starts

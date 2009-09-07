@@ -19,5 +19,7 @@ object Item extends Item with LongKeyedMetaMapper[Item] with CRUDify[Long, Item]
 
     override def createMenuLoc = Empty
 
+    override def viewMenuLoc = Empty
+
     override def fieldOrder = List(name, amount)
 }
