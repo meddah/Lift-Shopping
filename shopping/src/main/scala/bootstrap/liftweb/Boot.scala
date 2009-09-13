@@ -28,13 +28,13 @@ class Boot {
                     Menu(Loc("Item", List("item") -> true, "Item", Hidden)) ::
                     Menu(Loc("ItemList", List("item", "list"), "Item List")) ::
                     Menu(Loc("ItemCreate", List("item", "create"), "Create Item")) ::
-                    User.sitemap ::: Item.menus
+                    User.sitemap //::: Item.menus
     LiftRules.setSiteMap(SiteMap(entries:_*))
 
     LiftRules.rewrite.append {
         case RewriteRequest(
-        ParsePath(List("item", "view", id),_,_,_),_,_) =>
-        RewriteResponse("item" :: "view" :: Nil, Map("id" -> id))
+        ParsePath(List("item", action, id),_,_,_),_,_) =>
+        RewriteResponse("item" :: action :: Nil, Map("id" -> id))
     }
 
 
